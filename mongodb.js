@@ -1,59 +1,32 @@
 // CRUD create read update delete
 
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+// const mongodb = require('mongodb')
+// const MongoClient = mongodb.MongoClient
+// const ObjectID = mongodb.ObjectID
+
+const { MongoClient, ObjectId } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
-mongodb.MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
+MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) => {
     if (error) {
         return console.log('Unable to connect to database!')
     }
     
     const db = client.db(databaseName)
     
-    // db.collection('users').insertOne({
-    //     name: 'Peter',
-    //     age: 36
-    // }, (error, result) => {
-    //     if (error) {
-    //         return console.log('Unable to insert user')
-    //     }
-
-    //     console.log(result.ops)
-    // })
-
-    // db.collection('users').insertMany([
-    //     {
-    //         name: 'Sophie',
-    //         age: 33
-    //     }, {
-    //         name: 'Myrofora',
-    //         age: 1
-    //     } 
-    //     ], (error, result) => {
-    //         if (error) {
-    //             return console.log('Unable to insert documents')
-    //         }
-    //         console.log(result)
-    //     }
-    // )
-    const tasks = [{
-        description: 'git status',
-        completed: true
-    }, {
-        description: 'git add .',
-        completed: true
-    }, {
-        description: 'git commit -m "message..."',
-        completed: false
-    }]
-
-    db.collection('tasks').insertMany(tasks, (error, result) => {
+    db.collection('users').findOne({ _id: new ObjectId('612243228317831fda6df2be') }, (error, user) => {
         if (error) {
-            return console.log('Unable to insert documents')
+            return console.log('Unable to fetch')
         }
-        console.log(result)
+        console.log(user)
+    })
+
+    db.collection('users').find({ age: 36 }).toArray((error, user) => {
+        if (error) {
+            return console.log('Unable to fetch')
+        }
+        console.log(user)
     })
 })
