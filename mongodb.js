@@ -6,6 +6,8 @@
 
 const { MongoClient, ObjectId } = require('mongodb')
 
+let count = 5
+
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
 
@@ -15,6 +17,11 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     }
     
     const db = client.db(databaseName)
+
+    while( count < 10){
+        console.log('hello')
+        count = 10
+    }
     
     // const updatePromise = db.collection('users').updateOne({
     //     _id: new ObjectId("612240adfdd9443cfaafbc93")
