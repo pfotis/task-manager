@@ -10,19 +10,23 @@ const User = mongoose.model('User', {
     name: {
         type: String,
         required: true,
+        trim: true
+    },
+    email: {
+        type: String,
+        reqiured: true,
+        trim: true,
+        lowercase: true,
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
             }
         }
-    },
-    email: {
-        type: String,
-        reqiured: true,
 
     },
     age: {
         type: Number,
+        default: 0,
         validate(value) {
             if (value < 0) {
                 throw new Error('Age must be a positive number')
@@ -41,8 +45,8 @@ const Task = mongoose.model('Task', {
 })
 
 const me = new User({
-   name: 'Mike',
-   email: 'mike@example.com'
+   name: '   Peter    ',
+   email: 'PETER@example.COM.AU      '
 })
 
 me.save().then(() => {
