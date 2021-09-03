@@ -1,6 +1,5 @@
 const express = require('express')
 const router = new express.Router()
-require('../db/mongoose')
 const Task = require('../models/task')
 
 router.get('/tasks', async (req, res) => {

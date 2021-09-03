@@ -1,6 +1,5 @@
 const express = require('express')
 const router = new express.Router()
-require('../db/mongoose')
 const User = require('../models/user')
 
 router.post('/users', async (req, res) => {
