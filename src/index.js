@@ -14,12 +14,8 @@ const port = process.env.PORT || 3000
 //     }
 // })
 
-app.use((req, res, next) => {
-    if(req.method === 'GET' || req.method === 'POST' || req.method === 'DELETE' || req.method === 'PATCH') {
-        res.status(503).send('server under maintenance try again soon !')
-    } else {
-        next()
-    }
+app.use((req, res, next) => {    
+    res.status(503).send('server under maintenance try again soon !')
 })
 
 app.use(express.json())
