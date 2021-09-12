@@ -9,7 +9,7 @@ router.post('/users', async (req, res) => {
     try {
         await user.save()
         const token = await user.generateAuthToken()
-        res.status(201).send({ user, token })
+        res.status(201).send({ user: user.getPublicProfile(), token })
     } catch (error) {
         res.status(400).send(error)
     }
@@ -30,6 +30,17 @@ router.post('/users/logout', auth, async(req, res) => {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
+        await req.user.save()
+
+        res.send()
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+router.post('/users/logoutAll', auth, async(req, res) => {
+    try {
+        req.user.tokens = []
         await req.user.save()
 
         res.send()
